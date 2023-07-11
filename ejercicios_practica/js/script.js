@@ -21,13 +21,19 @@ const linebreak = document.createElement("br")
 
 
 boton.onclick = async () =>{
-    const character = await getCharacter(personaje.value);
-    renderCharacter(character)
+    try {
+        const character = await getCharacter(personaje.value);
+        renderCharacter(character)
+    } catch (error) {
+        console.error('Error: ' , error)
+        throw new Error('Error : '+  error.message)  
+    }
+
 }
 async function  getCharacter  (personaje)  {
     const url = `https://rickandmortyapi.com/api/character/?name=${personaje}`
     const response = await fetch(url, {
-        method : 'GET',
+        // method : 'GET',
     })
     const data = await response.json();
     if(response.ok) {
